@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="12" failures="0" name="service.HurtowniaManagerImplTest" time="2.517" errors="0" skipped="0">
+<testsuite tests="12" failures="0" name="service.HurtowniaManagerImplTest" time="2.644" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_101\jre\bin"/>
@@ -63,16 +63,16 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="service.HurtowniaManagerImplTest" name="deleteProdukt" time="2.372"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="findProduktById" time="0.009"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="updateProducent" time="0.033"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="addProduktToProducent" time="0.01"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="getProduktyofProducent" time="0.016"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="findProducentbyNazwa" time="0.008"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="updateProdukt" time="0.019"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="addProducent" time="2.48"/>
   <testcase classname="service.HurtowniaManagerImplTest" name="getAllProducents" time="0.011"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="deleteProducent" time="0.012"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="addNewProdukt" time="0.005"/>
-  <testcase classname="service.HurtowniaManagerImplTest" name="addProducent" time="0.011"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="deleteProducent" time="0.025"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="addNewProdukt" time="0.012"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="findProduktById" time="0.012"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="updateProducent" time="0.016"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="deleteProdukt" time="0.017"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="updateProdukt" time="0.013"/>
   <testcase classname="service.HurtowniaManagerImplTest" name="getAllProdukts" time="0.011"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="findProducentbyNazwa" time="0.03"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="addProduktToProducent" time="0.004"/>
+  <testcase classname="service.HurtowniaManagerImplTest" name="getProduktyofProducent" time="0.013"/>
 </testsuite>

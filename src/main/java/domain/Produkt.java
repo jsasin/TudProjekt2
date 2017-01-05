@@ -31,7 +31,7 @@ public class Produkt {
     public String getNazwa() {
         return nazwa;
     }
-
+    @Column(unique = true)
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
     }
