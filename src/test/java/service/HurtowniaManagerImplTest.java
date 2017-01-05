@@ -26,9 +26,9 @@ import static org.junit.Assert.*;
 @Transactional
 public class HurtowniaManagerImplTest {
 
+
     @Autowired
     private HurtowniaManager hurtowniaManager;
-
 
 
     private final String NAZWA_PRODUCENT_1 = "Bialy Nosek";
@@ -102,10 +102,10 @@ public class HurtowniaManagerImplTest {
 
         assertEquals(retrievedProducents.size(),2);
 
-        assertEquals(NAZWA_PRODUCENT_1, retrievedProducents.get(0).getNazwa());
-        assertEquals(KRAJ_PRODUCENT_1, retrievedProducents.get(0).getKraj());
-        assertEquals(NAZWA_PRODUCENT_2, retrievedProducents.get(1).getNazwa());
-        assertEquals(KRAJ_PRODUCENT_2, retrievedProducents.get(1).getKraj());
+        assertEquals(NAZWA_PRODUCENT_1, retrievedProducents.get(retrievedProducents.size()-2).getNazwa());
+        assertEquals(KRAJ_PRODUCENT_1, retrievedProducents.get(retrievedProducents.size()-2).getKraj());
+        assertEquals(NAZWA_PRODUCENT_2, retrievedProducents.get(retrievedProducents.size()-1).getNazwa());
+        assertEquals(KRAJ_PRODUCENT_2, retrievedProducents.get(retrievedProducents.size()-1).getKraj());
 
 
     }
@@ -132,8 +132,8 @@ public class HurtowniaManagerImplTest {
         List<Producent> retrievedProducents = hurtowniaManager.getAllProducents();
 
         assertEquals(retrievedProducents.size(),1);
-        assertEquals(NAZWA_PRODUCENT_2, retrievedProducents.get(0).getNazwa());
-        assertEquals(KRAJ_PRODUCENT_2, retrievedProducents.get(0).getKraj());
+        assertEquals(NAZWA_PRODUCENT_2, retrievedProducents.get(retrievedProducents.size()-1).getNazwa());
+        assertEquals(KRAJ_PRODUCENT_2, retrievedProducents.get(retrievedProducents.size()-1).getKraj());
 
     }
 
@@ -191,6 +191,10 @@ public class HurtowniaManagerImplTest {
     @Test
     public void getAllProdukts() throws Exception {
 
+        List<Produkt> retrievedProdukts = hurtowniaManager.getAllProdukts();
+
+        int size = retrievedProdukts.size();
+
         Produkt produkt = new Produkt();
 
         produkt.setNazwa(NAZWA_PRODUKT_1);
@@ -208,17 +212,17 @@ public class HurtowniaManagerImplTest {
 
         hurtowniaManager.addNewProdukt(produkt2);
 
-        List<Produkt> retrievedProdukts = hurtowniaManager.getAllProdukts();
+        retrievedProdukts = hurtowniaManager.getAllProdukts();
 
-        assertEquals(retrievedProdukts.size(),2);
+        assertEquals(retrievedProdukts.size(),size+2);
 
-        assertEquals(NAZWA_PRODUKT_1, retrievedProdukts.get(0).getNazwa());
-        assertEquals(CENA_PRODUKT_1, retrievedProdukts.get(0).getCena(),DELTA);
-        assertEquals(OBJETOSC_PRODUKT_1, retrievedProdukts.get(0).getObjetosc_mg());
+        assertEquals(NAZWA_PRODUKT_1, retrievedProdukts.get(retrievedProdukts.size()-2).getNazwa());
+        assertEquals(CENA_PRODUKT_1, retrievedProdukts.get(retrievedProdukts.size()-2).getCena(),DELTA);
+        assertEquals(OBJETOSC_PRODUKT_1, retrievedProdukts.get(retrievedProdukts.size()-2).getObjetosc_mg());
 
-        assertEquals(NAZWA_PRODUKT_2, retrievedProdukts.get(1).getNazwa());
-        assertEquals(CENA_PRODUKT_2, retrievedProdukts.get(1).getCena(),DELTA);
-        assertEquals(OBJETOSC_PRODUKT_2, retrievedProdukts.get(1).getObjetosc_mg());
+        assertEquals(NAZWA_PRODUKT_2, retrievedProdukts.get(retrievedProdukts.size()-1).getNazwa());
+        assertEquals(CENA_PRODUKT_2, retrievedProdukts.get(retrievedProdukts.size()-1).getCena(),DELTA);
+        assertEquals(OBJETOSC_PRODUKT_2, retrievedProdukts.get(retrievedProdukts.size()-1).getObjetosc_mg());
 
     }
 
@@ -275,7 +279,7 @@ public class HurtowniaManagerImplTest {
 
         hurtowniaManager.addNewProdukt(produkt2);
 
-        Produkt produkttest = hurtowniaManager.getAllProdukts().get(0);
+        Produkt produkttest = hurtowniaManager.getAllProdukts().get(hurtowniaManager.getAllProdukts().size()-2);
 
         Produkt retrieved = hurtowniaManager.findProduktById(produkttest.getId());
 
@@ -329,5 +333,107 @@ public class HurtowniaManagerImplTest {
         assertEquals(retrievedproducent.getProdukty().get(1).getObjetosc_mg(),OBJETOSC_PRODUKT_2);
 
     }
+
+    @Test
+    public void updateProducent() throws Exception {
+
+        assertNull(hurtowniaManager.findProducentbyNazwa(NAZWA_PRODUCENT_1));
+        assertNull(hurtowniaManager.findProducentbyNazwa("Wietnamskie Specyfiki"));
+
+        Producent producent = new Producent();
+
+        producent.setNazwa(NAZWA_PRODUCENT_1);
+        producent.setKraj(KRAJ_PRODUCENT_1);
+
+        hurtowniaManager.addProducent(producent);
+
+        Producent retrieved = hurtowniaManager.findProducentbyNazwa(NAZWA_PRODUCENT_1);
+
+        retrieved.setNazwa("Wietnamskie Specyfiki");
+
+        hurtowniaManager.updateProducent(retrieved);
+
+        retrieved=hurtowniaManager.findProducentbyNazwa("Wietnamskie Specyfiki");
+
+        assertEquals(retrieved.getKraj(),KRAJ_PRODUCENT_1);
+
+    }
+
+    @Test
+    public void deleteProdukt() throws Exception {
+
+        List<Produkt> retrievedprodukts = hurtowniaManager.getAllProdukts();
+
+        int size = retrievedprodukts.size();
+
+        Produkt produkt = new Produkt();
+
+        produkt.setNazwa(NAZWA_PRODUKT_1);
+        produkt.setCena(CENA_PRODUKT_1);
+        produkt.setObjetosc_mg(OBJETOSC_PRODUKT_1);
+
+        hurtowniaManager.addNewProdukt(produkt);
+
+        Produkt produkt2 = new Produkt();
+
+        produkt2.setNazwa(NAZWA_PRODUKT_2);
+        produkt2.setCena(CENA_PRODUKT_2);
+        produkt2.setObjetosc_mg(OBJETOSC_PRODUKT_2);
+
+
+        hurtowniaManager.addNewProdukt(produkt2);
+
+        retrievedprodukts = hurtowniaManager.getAllProdukts();
+
+
+        assertEquals(retrievedprodukts.size(),size+2);
+
+        hurtowniaManager.deleteProdukt(produkt);
+        retrievedprodukts = hurtowniaManager.getAllProdukts();
+
+        assertEquals(retrievedprodukts.size(),size+1);
+
+        assertEquals(retrievedprodukts.get(size).getNazwa(),NAZWA_PRODUKT_2);
+        assertEquals(retrievedprodukts.get(size).getCena(),CENA_PRODUKT_2,DELTA);
+        assertEquals(retrievedprodukts.get(size).getObjetosc_mg(),OBJETOSC_PRODUKT_2);
+
+    }
+
+    @Test
+    public void updateProdukt() throws Exception {
+
+        Produkt produkt = new Produkt();
+
+        produkt.setNazwa(NAZWA_PRODUKT_1);
+        produkt.setCena(CENA_PRODUKT_1);
+        produkt.setObjetosc_mg(OBJETOSC_PRODUKT_1);
+
+        hurtowniaManager.addNewProdukt(produkt);
+
+        Produkt produkt2 = new Produkt();
+
+        produkt2.setNazwa(NAZWA_PRODUKT_2);
+        produkt2.setCena(CENA_PRODUKT_2);
+        produkt2.setObjetosc_mg(OBJETOSC_PRODUKT_2);
+
+
+        hurtowniaManager.addNewProdukt(produkt2);
+
+        List<Produkt> retrievedprodukts = hurtowniaManager.getAllProdukts();
+
+       Produkt modified = hurtowniaManager.findProduktById(retrievedprodukts.get(retrievedprodukts.size()-1).getId());
+
+       modified.setNazwa("Sok z gumijagód");
+
+       hurtowniaManager.updateProdukt(modified);
+        retrievedprodukts = hurtowniaManager.getAllProdukts();
+
+        assertEquals(retrievedprodukts.get(retrievedprodukts.size()-1).getNazwa(),"Sok z gumijagód");
+        assertEquals(retrievedprodukts.get(retrievedprodukts.size()-1).getCena(),CENA_PRODUKT_2,DELTA);
+        assertEquals(retrievedprodukts.get(retrievedprodukts.size()-1).getObjetosc_mg(),OBJETOSC_PRODUKT_2);
+
+    }
+
+
 
 }

@@ -43,6 +43,21 @@ public class HurtowniaManagerImpl implements HurtowniaManager {
     }
 
     @Override
+    public void updateProducent(Producent producent) {
+        sessionFactory.getCurrentSession().persist(producent);
+    }
+
+    @Override
+    public void deleteProdukt(Produkt produkt) {
+        sessionFactory.getCurrentSession().delete(produkt);
+    }
+
+    @Override
+    public void updateProdukt(Produkt produkt) {
+        sessionFactory.getCurrentSession().persist(produkt);
+    }
+
+    @Override
     public void deleteProducent(Producent producent) {
         sessionFactory.getCurrentSession().delete(producent);
 
